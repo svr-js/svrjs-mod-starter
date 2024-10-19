@@ -1,4 +1,4 @@
-const cluster = require("./utils/clusterBunShim.js"); // Cluster shim for Bun
+const cluster = require("./utils/clusterShim.js"); // Cluster shim for Bun and Deno
 const { add } = require("./utils/helper.js"); // Require the addition module
 const modInfo = require("../modInfo.json"); // SVR.JS mod information
 
