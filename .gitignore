@@ -1,5 +1,8 @@
 # Build output
 /dist/
 
+# SVR.JS
+/svrjs/
+
 # Dependencies
 node_modules
