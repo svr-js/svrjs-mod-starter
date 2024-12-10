@@ -51,7 +51,12 @@ module.exports.commands = {
 // Uncomment, if you want to handle proxy requests
 //module.exports.proxy = (req, socket, head, logFacilities, config, next) => {
 //  next(); // Invoke other proxy handlers
-//}
+//};
+
+// Uncomment, if you use custom SVR.JS configuration properties in the mod
+//module.exports.configValidators = {
+//  aNumber: (value) => typeof value === "string"
+//};
 
 // IPC listener for main process
 // Control messages received by main process begin with 0x12 control character
