@@ -1,0 +1,6 @@
+{
+    "watch": [
+      "svrjs/mods/mod.js",
+      "svrjs/config.json"
+    ]
+}

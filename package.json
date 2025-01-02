@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node esbuild.config.js",
+    "dev": "concurrently \"NODE_ENV=development node esbuild.config.js\" \"wait-on svrjs/mods/mod.js && nodemon svrjs/svr.js --stdout-notty --no-save-config\"",
     "lint": "eslint --no-error-on-unmatched-pattern src/**/*.js src/*.js tests/**/*.test.js tests/**/*.js",
     "lint:fix": "npm run lint -- --fix",
     "postinstall": "node svrjs.install.js",
@@ -11,6 +12,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "concurrently": "^9.1.2",
     "esbuild": "^0.23.1",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
@@ -18,7 +20,9 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
     "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
     "prettier": "^3.3.3",
+    "wait-on": "^8.0.1",
     "zip": "^1.2.0"
   }
 }
