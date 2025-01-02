@@ -19,3 +19,6 @@ Structure:
  - eslint.config.js - ESLint configuration
  - jest.config.js - Jest configuration
  - modInfo.json - SVR.JS mod name and version
+ - nodemon.json - Nodemon configuration
+ - prettier.config.js - Prettier configuration
+ - svrjs.install.js - SVR.JS installation script (SVR.JS is used by the development server)
