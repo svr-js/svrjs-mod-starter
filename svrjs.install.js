@@ -42,27 +42,21 @@ function downloadSVRJS(version) {
           const reader = zip.Reader(zipData);
           const allFiles = reader.toObject();
           Object.keys(allFiles).forEach((filename) => {
-            var paths = filename.split("/");
-            if (
-              filename.match(
-                /^(?:[^/.]+\.compressed|(?:log(?:viewer|highlight)|svr(?:passwd|_new)?)\.js|node_modules(?:\/|$))/
-              )
-            ) {
-              for (var j = 0; j < paths.length - 1; j++) {
-                const dirname = JSON.parse(JSON.stringify(paths))
-                  .splice(0, j + 1)
-                  .join("/");
-                if (!fs.existsSync(__dirname + "/svrjs/" + dirname)) {
-                  fs.mkdirSync(__dirname + "/svrjs/" + dirname);
-                }
+            const paths = filename.split("/");
+            for (let i = 0; i < paths.length - 1; i++) {
+              const dirname = JSON.parse(JSON.stringify(paths))
+                .splice(0, i + 1)
+                .join("/");
+              if (!fs.existsSync(__dirname + "/svrjs/" + dirname)) {
+                fs.mkdirSync(__dirname + "/svrjs/" + dirname);
               }
-              fs.writeFileSync(
-                __dirname + "/svrjs/" + filename,
-                allFiles[filename]
-              );
             }
+            fs.writeFileSync(
+              __dirname + "/svrjs/" + filename,
+              allFiles[filename]
+            );
           });
-          fs.mkdirSync(__dirname + "/svrjs/mods");
+          if (!fs.existsSync(__dirname + "/svrjs/mods")) fs.mkdirSync(__dirname + "/svrjs/mods");
           console.log("Deleting SVR.JS stub...");
           fs.unlinkSync(__dirname + "/svrjs/svr.js");
           // Modules aren't extracted in SVR.JS's 4.x stub, so no module extraction code here.
