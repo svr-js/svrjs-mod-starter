@@ -57,15 +57,17 @@ function downloadSVRJS(version) {
             );
           });
           if (!fs.existsSync(__dirname + "/svrjs/mods")) fs.mkdirSync(__dirname + "/svrjs/mods");
-          console.log("Deleting SVR.JS stub...");
-          fs.unlinkSync(__dirname + "/svrjs/svr.js");
-          // Modules aren't extracted in SVR.JS's 4.x stub, so no module extraction code here.
-          console.log("Decompressing SVR.JS...");
-          const script = zlib.gunzipSync(
-            fs.readFileSync(__dirname + "/svrjs/svr.compressed")
-          );
-          fs.unlinkSync(__dirname + "/svrjs/svr.compressed");
-          fs.writeFileSync(__dirname + "/svrjs/svr.js", script);
+          if (fs.existsSync(__dirname + "/svrjs/svr.compressed")) {
+            console.log("Deleting SVR.JS stub...");
+            fs.unlinkSync(__dirname + "/svrjs/svr.js");
+            // Modules aren't extracted in SVR.JS's 4.x stub, so no module extraction code here.
+            console.log("Decompressing SVR.JS...");
+            const script = zlib.gunzipSync(
+              fs.readFileSync(__dirname + "/svrjs/svr.compressed")
+            );
+            fs.unlinkSync(__dirname + "/svrjs/svr.compressed");
+            fs.writeFileSync(__dirname + "/svrjs/svr.js", script);
+          }
           console.log("SVR.JS is installed successfully.");
         });
       }
