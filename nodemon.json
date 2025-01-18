@@ -1,6 +1,7 @@
 {
     "watch": [
       "svrjs/mods/mod.js",
-      "svrjs/config.json"
+      "svrjs/config.json",
+      "svrjs/svrjs.yaml"
     ]
 }
