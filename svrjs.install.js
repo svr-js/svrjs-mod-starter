@@ -4,6 +4,7 @@ const fs = require("fs");
 const https = require("https");
 const zip = require("zip");
 const zlib = require("zlib");
+const YAML = require("yaml");
 
 function downloadSVRJS(version) {
   const normalizedVersion = version.toLowerCase().replace(/[^0-9a-z]+/g, ".");
@@ -67,6 +68,26 @@ function downloadSVRJS(version) {
             );
             fs.unlinkSync(__dirname + "/svrjs/svr.compressed");
             fs.writeFileSync(__dirname + "/svrjs/svr.js", script);
+          }
+          if (fs.existsSync(__dirname + "/svrjs/svrjs.yaml")) {
+            console.log("Modifying SVR.JS configuration...");
+            let svrjsConfig = YAML.parse(fs.readFileSync(__dirname + "/svrjs/svrjs.yaml"));
+            if (!svrjsConfig) svrjsConfig = {};
+            if (!svrjsConfig.global) svrjsConfig.global = {};
+            svrjsConfig.global.enableDirectoryListing = true;
+            svrjsConfig.global.stackHidden = false;
+            svrjsConfig.global.exposeServerVersion = true;
+            svrjsConfig.global.exposeModsInErrorPages = true;
+            fs.writeFileSync(__dirname + "/svrjs/svrjs.yaml", YAML.stringify(svrjsConfig));
+          } else if (fs.existsSync(__dirname + "/svrjs/config.json")) {
+            console.log("Modifying SVR.JS configuration...");
+            let svrjsConfig = JSON.parse(fs.readFileSync(__dirname + "/svrjs/config.json"));
+            if (!svrjsConfig) svrjsConfig = {};
+            svrjsConfig.enableDirectoryListing = true;
+            svrjsConfig.stackHidden = false;
+            svrjsConfig.exposeServerVersion = true;
+            svrjsConfig.exposeModsInErrorPages = true;
+            fs.writeFileSync(__dirname + "/svrjs/svrjs.yaml", JSON.stringify(svrjsConfig, null, 2));
           }
           console.log("SVR.JS is installed successfully.");
         });
